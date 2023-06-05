@@ -69,7 +69,7 @@ issues were identified:
  #. Centroid coordinates are NaN after first iteration
 
 Testing PSF model performance
-=============================
+-----------------------------
 
 In the crowded fields the first potential issue identified was the presence of
 wings in the PSF model produced by ProcCCD/CharactrizeImage. Below we show two
@@ -99,7 +99,7 @@ by a 2D normal distribution. However, this had no effect in identifying more
 sources in iteration > 1. 
 
 Centroiding
-===========
+------------
 
 Centroiding removes too many (all) new sources. 
 
@@ -119,9 +119,9 @@ with the less accurate coarse positions. See `code block <https://github.com/bal
 TODO: investigate point of failure of centroid()
 
 Deblending
-==========
+----------
 
-TODO: test deblending criteria.
+TODO: make plots
 
 Performance 
 ===========
