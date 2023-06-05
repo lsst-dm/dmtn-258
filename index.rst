@@ -32,6 +32,31 @@ HiTS SN survey.::
 
 "instrument": "DECam", "visit":288970 Control  u/sullivan/DM-30831-HiTS2014-templates_test/20211011T191211Z
 
+Below is the result of running pipe_crowd without any modifications to the code
+and using its default configuration.
+
+.. figure:: /_static/high.png
+    :name: high
+
+    Small region of the high crowding field (left; inset shows PSF model used),
+    recontructed image (centre), and residuals (right). Pixels in red are
+    masked. 
+
+.. figure:: /_static/medium.png
+    :name: med
+
+    Same for medium crowding field.
+
+.. figure:: /_static/low.png
+    :name: low
+
+    Same for low crowding field.
+
+.. figure:: /_static/control.png
+    :name: control
+
+    Same for control field.
+
 Issues identified 
 =================
 
@@ -42,7 +67,6 @@ issues were identified:
     in the residual images produce no additional sources. 
  #. PSF model has wings. Produces oversubtract residual images.
  #. Centroid coordinates are NaN after first iteration
-
 
 Testing PSF model performance
 =============================
@@ -77,21 +101,32 @@ sources in iteration > 1.
 Centroiding
 ===========
 
-Define centroiding
+Centroiding removes too many (all) new sources. 
 
-Example tables with NaN
 
-Fix. 
+.. figure:: /_static/centroid_issue.png
+    :name: centroid-issue
 
-Cause unknown.
+    In the low crowding test, on iteration > 1 several new sources are detected
+    using simple threshold source detection, these are marked in yellow. Red
+    show sources identified in iteration = 0. This shows the success of source
+    detection, however the centroid task produces unwanted NaNs that remove
+    these new sources for i > 1. 
+
+This was solved by brute force updating the spurious centroid positions
+with the less accurate coarse positions. See `code block <https://github.com/balbinot/pipe_crowd/blob/f17b8620bc995ff39539f10e4c0dd4acdc456594/python/lsst/pipe/crowd/crowd.py#LL272C1-L278C94>`__ 
+
+TODO: investigate point of failure of centroid()
 
 Deblending
 ==========
 
+TODO: test deblending criteria.
+
 Performance 
 ===========
 
-Summary of the performance after XM with Gaia (external catalogue).
+TODO: Summary of the performance after XM with Gaia (external catalogue).
 
 People
 ======
